@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_title">Rap Catalog</string>
+    <string name="action_back">Back</string>
+    <string name="action_toggle_theme">Toggle theme</string>
+    <string name="action_switch_language">Switch language</string>
+    <string name="language_short">RU</string>
+
+    <string name="list_count">Records in catalog: %1$s</string>
+    <string name="detail_not_found">No such record in the catalog</string>
+
+    <string name="artist_type_person">Artist</string>
+    <string name="artist_type_group">Group</string>
+    <string name="artist_type_other">Other</string>
+
+    <string name="label_country">Country: %1$s</string>
+    <string name="label_origin">From: %1$s, %2$s</string>
+    <string name="label_born">Born: %1$s</string>
+    <string name="label_lifespan">Lifespan: %1$s — %2$s</string>
+    <string name="label_group_since">Formed in %1$s</string>
+    <string name="label_group_range">Active: %1$s — %2$s</string>
+
+    <string name="section_about">About</string>
+    <string name="section_aliases">Aliases</string>
+    <string name="section_tags">Tags</string>
+    <string name="section_releases">Releases</string>
+    <string name="section_related">Related artists</string>
+    <string name="alias_primary">primary</string>
+
+    <string name="genre_hip_hop">Hip hop</string>
+    <string name="genre_rap">Rap</string>
+    <string name="genre_pop_rap">Pop rap</string>
+    <string name="genre_east_coast">East coast</string>
+    <string name="genre_west_coast">West coast</string>
+    <string name="genre_southern">Southern hip hop</string>
+    <string name="genre_gangsta_rap">Gangsta rap</string>
+    <string name="genre_g_funk">G-funk</string>
+    <string name="genre_conscious">Conscious hip hop</string>
+    <string name="genre_political">Political hip hop</string>
+    <string name="genre_hardcore">Hardcore hip hop</string>
+    <string name="genre_boom_bap">Boom bap</string>
+    <string name="genre_jazz_rap">Jazz rap</string>
+    <string name="genre_instrumental">Instrumental hip hop</string>
+    <string name="genre_experimental">Experimental hip hop</string>
+    <string name="genre_alternative">Alternative hip hop</string>
+    <string name="genre_underground">Underground</string>
+    <string name="genre_old_school">Old school</string>
+    <string name="genre_rap_rock">Rap rock</string>
+    <string name="genre_trap">Trap</string>
+    <string name="genre_crunk">Crunk</string>
+    <string name="genre_emo_rap">Emo rap</string>
+    <string name="genre_cloud_rap">Cloud rap</string>
+    <string name="genre_trap_metal">Trap metal</string>
+    <string name="genre_rage">Rage</string>
+</resources>

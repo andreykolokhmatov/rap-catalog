@@ -1,0 +1,33 @@
+package ru.omgtu.kolokhmatov.rapcatalog.detail
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.MutableCreationExtras
+import ru.omgtu.kolokhmatov.rapcatalog.domain.ArtistRepository
+import ru.omgtu.kolokhmatov.rapcatalog.ui.navigation.Navigator
+import kotlin.reflect.KClass
+
+class ArtistDetailViewModelFactory(
+    private val navigator: Navigator,
+    private val repository: ArtistRepository,
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
+        val id = requireNotNull(extras[ARTIST_ID_KEY]) {
+            "ArtistDetailViewModel создаётся без MBID: передайте extrasFor(id)"
+        }
+        @Suppress("UNCHECKED_CAST")
+        return ArtistDetailViewModel(
+            navigator = navigator,
+            repository = repository,
+            id = id,
+        ) as T
+    }
+
+    companion object {
+        private val ARTIST_ID_KEY = CreationExtras.Key<String>()
+
+        fun extrasFor(id: String): CreationExtras =
+            MutableCreationExtras().apply { set(ARTIST_ID_KEY, id) }
+    }
+}

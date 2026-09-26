@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_title">Рэп-каталог</string>
+    <string name="action_back">Назад</string>
+    <string name="action_toggle_theme">Переключить тему</string>
+    <string name="action_switch_language">Сменить язык</string>
+    <string name="language_short">EN</string>
+
+    <string name="list_count">Записей в каталоге: %1$s</string>
+    <string name="detail_not_found">Такой записи в каталоге нет</string>
+
+    <string name="artist_type_person">Исполнитель</string>
+    <string name="artist_type_group">Группа</string>
+    <string name="artist_type_other">Другое</string>
+
+    <string name="label_country">Страна: %1$s</string>
+    <string name="label_origin">Откуда: %1$s, %2$s</string>
+    <string name="label_born">Родился: %1$s</string>
+    <string name="label_lifespan">Годы жизни: %1$s — %2$s</string>
+    <string name="label_group_since">Собрались в %1$s</string>
+    <string name="label_group_range">Существовала: %1$s — %2$s</string>
+
+    <string name="section_about">Об исполнителе</string>
+    <string name="section_aliases">Псевдонимы</string>
+    <string name="section_tags">Теги</string>
+    <string name="section_releases">Релизы</string>
+    <string name="section_related">Связанные артисты</string>
+    <string name="alias_primary">основной</string>
+
+    <string name="genre_hip_hop">Хип-хоп</string>
+    <string name="genre_rap">Рэп</string>
+    <string name="genre_pop_rap">Поп-рэп</string>
+    <string name="genre_east_coast">Восточное побережье</string>
+    <string name="genre_west_coast">Западное побережье</string>
+    <string name="genre_southern">Южный хип-хоп</string>
+    <string name="genre_gangsta_rap">Гангста-рэп</string>
+    <string name="genre_g_funk">Джи-фанк</string>
+    <string name="genre_conscious">Осознанный хип-хоп</string>
+    <string name="genre_political">Политический хип-хоп</string>
+    <string name="genre_hardcore">Хардкор-хип-хоп</string>
+    <string name="genre_boom_bap">Бум-бэп</string>
+    <string name="genre_jazz_rap">Джаз-рэп</string>
+    <string name="genre_instrumental">Инструментальный хип-хоп</string>
+    <string name="genre_experimental">Экспериментальный хип-хоп</string>
+    <string name="genre_alternative">Альтернативный хип-хоп</string>
+    <string name="genre_underground">Андеграунд</string>
+    <string name="genre_old_school">Старая школа</string>
+    <string name="genre_rap_rock">Рэп-рок</string>
+    <string name="genre_trap">Трэп</string>
+    <string name="genre_crunk">Кранк</string>
+    <string name="genre_emo_rap">Эмо-рэп</string>
+    <string name="genre_cloud_rap">Клауд-рэп</string>
+    <string name="genre_trap_metal">Трэп-метал</string>
+    <string name="genre_rage">Рейдж</string>
+</resources>
