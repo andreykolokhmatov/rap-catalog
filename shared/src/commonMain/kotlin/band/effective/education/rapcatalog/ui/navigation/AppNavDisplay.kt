@@ -22,18 +22,8 @@ import band.effective.education.rapcatalog.list.ArtistListViewModelFactory
 import band.effective.education.rapcatalog.ui.screens.detail.ArtistDetailScreen
 import band.effective.education.rapcatalog.ui.screens.list.ArtistListScreen
 
-/** Длительность перехода между экранами. Одна на оба направления. */
 private const val TRANSITION_MS = 300
 
-/**
- * Хост навигации.
- *
- * Возврат обязан выглядеть возвратом, а не ещё одним шагом вперёд, поэтому обратные
- * переходы заданы отдельно и уезжают в другую сторону: `popTransitionSpec` и
- * `predictivePopTransitionSpec`, а не только прямая пара. Заодно это обязательно
- * технически — в артефакте Google значения по умолчанию на не-Android таргетах
- * заглушки, которые бросают `NotImplementedError`.
- */
 @Composable
 fun AppNavDisplay(
     modifier: Modifier,
@@ -56,8 +46,7 @@ fun AppNavDisplay(
                 ArtistListScreen(state = state, onIntent = viewModel::onIntent)
             }
             entry<Screen.Detail> { key ->
-                // Ключ обязателен: без него viewModel() отдаёт один экземпляр на весь
-                // хост, и карточка связанного артиста показала бы прошлую запись.
+
                 val viewModel: ArtistDetailViewModel = viewModel(
                     key = "detail-${key.id}",
                     factory = detailViewModelFactory,

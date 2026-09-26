@@ -3,17 +3,6 @@ package band.effective.education.rapcatalog.ui
 import androidx.compose.ui.graphics.Color
 import band.effective.education.rapcatalog.domain.Genre
 
-/**
- * Цвет жанра.
- *
- * Единственное место в приложении, где цвет зашит, а не взят из `MaterialTheme`.
- * Так и задумано: здесь цвет — это данные. «Восточное побережье» синее и в светлой
- * теме, и в тёмной; поменяйся он вместе с темой — читатель потерял бы признак,
- * по которому различает записи.
- *
- * Значения подобраны так, чтобы белый текст поверх читался на обеих темах:
- * каждый цвет проверен на контраст с белым и держит 4.5:1 (WCAG AA).
- */
 fun genreColor(genre: Genre): Color = when (genre) {
     Genre.HIP_HOP -> Color(0xFF6A3DC8)
     Genre.RAP -> Color(0xFF7E57C2)

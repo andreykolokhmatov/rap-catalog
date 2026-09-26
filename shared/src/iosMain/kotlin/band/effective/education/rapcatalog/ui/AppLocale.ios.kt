@@ -5,12 +5,6 @@ import androidx.compose.runtime.ProvidedValue
 import androidx.compose.runtime.staticCompositionLocalOf
 import platform.Foundation.NSUserDefaults
 
-/**
- * iOS. Список предпочитаемых языков лежит в `AppleLanguages`; Foundation читает его
- * при старте, поэтому подписи целиком переедут на новый язык после перезапуска.
- *
- * iOS в этой вехе бонус: без macOS он даже не собирается.
- */
 actual object PlatformLocale {
     private val LocalAppLanguage = staticCompositionLocalOf { AppLanguage.RU }
 

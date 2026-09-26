@@ -1,16 +1,5 @@
 package band.effective.education.rapcatalog.domain
 
-/**
- * Жанр артиста.
- *
- * В MusicBrainz жанр приходит строкой (`genres[].name`, `tags[].name`), поэтому
- * [apiName] хранится рядом с константой: в В2 сериализация разбирает строку через
- * [fromApi], а весь остальной код работает с типом, в котором нельзя опечататься.
- *
- * Список закрытый и покрывает набор из [band.effective.education.rapcatalog.data.mockArtists].
- * Жанр, которого здесь нет, каталог просто не показывает — это осознанный выбор:
- * тегов в MusicBrainz тысячи, и рисовать их все нечем.
- */
 enum class Genre(val apiName: String) {
     HIP_HOP("hip hop"),
     RAP("rap"),
@@ -40,7 +29,6 @@ enum class Genre(val apiName: String) {
     ;
 
     companion object {
-        /** Разбор строки из API. Неизвестный жанр отбрасывается, а не роняет запись. */
         fun fromApi(name: String): Genre? = entries.firstOrNull { it.apiName == name }
     }
 }

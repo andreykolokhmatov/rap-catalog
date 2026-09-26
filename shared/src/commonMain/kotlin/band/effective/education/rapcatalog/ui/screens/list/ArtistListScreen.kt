@@ -29,25 +29,10 @@ import band.effective.education.rapcatalog.ui.components.CardSurface
 import band.effective.education.rapcatalog.ui.components.GenreChip
 import org.jetbrains.compose.resources.stringResource
 
-/** Колонок в сетке. Число фиксированное: в этой вехе один макет, адаптив — В3. */
 private const val COLUMNS = 3
 
-/** Предел ширины колонки контента: дальше растут поля, а не плитки. */
 private val MAX_CONTENT_WIDTH = 1040.dp
 
-/**
- * Экран списка — сетка карточек.
- *
- * Строками во всю ширину каталог читался плохо: на широком окне у каждой записи
- * оставалось полтора метра пустоты справа, а на экран помещалось семь имён.
- * Плитка с крупной обложкой, именем и жанром даёт втрое больше записей на экран
- * и сравнимую с обложками сетку, к которой музыкальные каталоги и приучают.
- *
- * Вниз уходят состояние и колбэк, а не ViewModel целиком: отданная целиком
- * ViewModel выводится компилятором как `Unstable` и убивает пропуск рекомпозиции.
- * С такой сигнатурой экран остаётся `restartable skippable` — это видно в отчёте
- * компилятора, в каталоге `shared/build/compose_compiler`.
- */
 @Composable
 fun ArtistListScreen(
     state: ArtistListState,
@@ -57,10 +42,7 @@ fun ArtistListScreen(
     Box(modifier = modifier.fillMaxWidth(), contentAlignment = Alignment.TopCenter) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(COLUMNS),
-        // Колонка контента упирается в предел по ширине и дальше не растёт.
-        // Три колонки на весь экран дают плитки в пол-окна: на широком мониторе
-        // помещается полтора ряда, и каталог снова приходится листать по одной
-        // записи. Это не адаптив: макет один, меняется только поле по краям.
+
         modifier = Modifier.widthIn(max = MAX_CONTENT_WIDTH),
         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -74,8 +56,7 @@ fun ArtistListScreen(
                 modifier = Modifier.padding(bottom = 4.dp),
             )
         }
-        // Ключ по MBID обязателен: без него ячейки перетасовываются при любом
-        // изменении набора. Сетка ленивая — на экране живут только видимые плитки.
+
         items(items = state.items, key = { it.id }) { artist ->
             ArtistCard(
                 artist = artist,
@@ -86,13 +67,6 @@ fun ArtistListScreen(
     }
 }
 
-/**
- * Одна карточка сетки: обложка, имя, ведущий жанр.
- *
- * Жанр ровно один и в одну строку: компактная метка, переехавшая на вторую
- * строку, ломает ритм сетки, а обрезанная посередине перестаёт читаться.
- * Полный список жанров ждёт на экране детали.
- */
 @Composable
 private fun ArtistCard(artist: Artist, onClick: () -> Unit) {
     CardSurface(onClick = onClick) {

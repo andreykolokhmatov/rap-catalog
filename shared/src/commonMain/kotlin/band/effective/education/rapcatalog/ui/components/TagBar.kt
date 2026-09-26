@@ -19,15 +19,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import band.effective.education.rapcatalog.domain.Tag
 
-/**
- * Строка тега с полосой.
- *
- * [maxCount] — самый популярный тег этой записи: полоса показывает вес тега
- * относительно него, а не относительно абсолютной шкалы, которой у MusicBrainz нет.
- *
- * Рядом с полосой всегда стоит число: полоса передаёт порядок величин с одного
- * взгляда, число — точное значение, и одно другое не заменяет.
- */
 @Composable
 fun TagBar(tag: Tag, maxCount: Int, modifier: Modifier = Modifier) {
     Row(

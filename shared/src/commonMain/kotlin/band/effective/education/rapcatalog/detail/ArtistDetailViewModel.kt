@@ -8,19 +8,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-/**
- * Состояние одной карточки.
- *
- * Состояние объявлено как `ArtistDetailState?`: записи с таким MBID может не быть,
- * и экран обязан это пережить, а не упасть. В В2, когда данные придут из сети,
- * сюда же добавятся «грузится» и «не смогли загрузить».
- */
 class ArtistDetailViewModel(
     private val navigator: Navigator,
     repository: ArtistRepository,
     id: String,
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(
         repository.byId(id)?.let { artist ->
             ArtistDetailState(artist = artist, related = repository.related(artist))

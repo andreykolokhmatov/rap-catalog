@@ -7,16 +7,6 @@ import band.effective.education.rapcatalog.domain.Genre
 import band.effective.education.rapcatalog.domain.ReleaseGroup
 import band.effective.education.rapcatalog.domain.Tag
 
-/**
- * Каталог на моках — единственное место в проекте с предметными данными.
- *
- * Записи не выдуманы: MBID, имена, страны, даты, теги и релиз-группы выгружены из
- * MusicBrainz (`/ws/2/artist?query=tag:hip-hop` и `/ws/2/release-group?artist=`).
- * Поэтому в В2 моки заменятся сетью, а не перепишутся: формат уже тот.
- *
- * Данные каталога на английском — это не недоделка. Локализуется интерфейс,
- * а не содержимое: русских названий альбомов в MusicBrainz нет.
- */
 val mockArtists: List<Artist> = listOf(
     Artist(
         id = "b95ce3ff-3d05-4e87-9e01-c97b66af13d4",

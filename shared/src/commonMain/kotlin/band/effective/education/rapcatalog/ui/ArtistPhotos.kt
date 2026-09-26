@@ -38,17 +38,6 @@ import band.effective.education.rapcatalog.resources.artist_ye
 
 import org.jetbrains.compose.resources.DrawableResource
 
-/**
- * Фотография артиста, если она есть.
- *
- * Снимки лежат локально, в composeResources: сети в этой вехе нет, и закладываться
- * на неё нельзя. Источник — Викисклад, авторы и лицензии перечислены в
- * docs/CREDITS.md.
- *
- * Ключ — MBID, а не имя: имя может смениться (Kanye West стал Ye), MBID нет.
- * Возвращает null, когда свободного снимка не нашлось, — экран рисует
- * буквенную плитку и не ломается.
- */
 fun artistPhoto(artist: Artist): DrawableResource? = when (artist.id) {
     "37b2cb82-ef79-4d46-a184-a549450aa231" -> Res.drawable.artist_a_21_savage
     "382f1005-e9ab-4684-afd4-0bdae4ee37f2" -> Res.drawable.artist_a_2pac

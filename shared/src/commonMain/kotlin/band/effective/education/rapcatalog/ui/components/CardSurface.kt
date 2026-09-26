@@ -17,17 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
-/**
- * Подложка под карточку.
- *
- * Отделяется от фона цветом, а не тенью и не рамкой: на тёмной теме тень не видно,
- * а рамка на каждой карточке превращает список в таблицу. Цвета — только токены.
- *
- * У кликабельной карточки есть три состояния сверх обычного: под курсором, под
- * фокусом с клавиатуры и в момент нажатия. Без них карточка не отличается от
- * плашки с текстом, а тот, кто ходит по списку с клавиатуры, вообще не видит,
- * где находится. Ведущий таргет вехи — desktop, там курсор есть всегда.
- */
 @Composable
 fun CardSurface(
     onClick: (() -> Unit)? = null,
@@ -47,8 +36,6 @@ fun CardSurface(
         },
     )
     val border = when {
-        // Фокус заметнее наведения: с клавиатуры не видно курсора, и рамка —
-        // единственный признак того, где ты сейчас.
         focused -> BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
         hovered -> BorderStroke(1.dp, MaterialTheme.colorScheme.outline)
         else -> null
@@ -76,7 +63,6 @@ fun CardSurface(
     )
 }
 
-/** Подмешивает каплю акцента в подложку — ровно настолько, чтобы заметить наведение. */
 private fun Color.compositeOverPrimary(primary: Color): Color = Color(
     red = red * 0.88f + primary.red * 0.12f,
     green = green * 0.88f + primary.green * 0.12f,

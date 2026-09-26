@@ -56,18 +56,8 @@ import band.effective.education.rapcatalog.ui.components.TagBar
 import band.effective.education.rapcatalog.ui.genreColor
 import org.jetbrains.compose.resources.stringResource
 
-/** Предел ширины колонки контента — тот же, что в списке. */
 private val MAX_CONTENT_WIDTH = 1040.dp
 
-/**
- * Экран детали.
- *
- * Сигнатура та же, что у списка: состояние вниз, намерения вверх. Состояние
- * nullable — записи с таким MBID может не оказаться, и это не повод падать.
- *
- * Разделы разделены воздухом, а не линейками: 28dp между блоками читаются как
- * граница не хуже, а экран не превращается в разлинованную таблицу.
- */
 @Composable
 fun ArtistDetailScreen(
     state: ArtistDetailState?,
@@ -96,8 +86,6 @@ fun ArtistDetailScreen(
         Header(artist)
 
         Column(
-            // Та же колонка контента, что и в списке: строка релиза во всю ширину
-            // монитора рвёт связь между годом слева и названием справа.
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .widthIn(max = MAX_CONTENT_WIDTH)
@@ -106,12 +94,6 @@ fun ArtistDetailScreen(
         ) {
             Facts(artist)
 
-            // Справка идёт первой из разделов: это единственный текст на экране,
-            // который читают, а не просматривают. Ниже него — одни перечни.
-            //
-            // Язык берётся из выбранного в шапке: у справки есть русская версия,
-            // и это отдельная статья, а не перевод. Нет русской — показывается
-            // английская, пустой раздел не рисуется вовсе.
             val biography = when {
                 LocalAppLanguage.current == AppLanguage.RU &&
                     artist.biographyRu.isNotEmpty() -> artist.biographyRu
@@ -123,8 +105,7 @@ fun ArtistDetailScreen(
                         text = biography,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        // Абзац уже колонки: на всю ширину строка выходит символов
-                        // на сто десять, и глаз теряет начало следующей строки.
+
                         modifier = Modifier.widthIn(max = 680.dp),
                     )
                 }
@@ -166,8 +147,6 @@ fun ArtistDetailScreen(
                                         .padding(vertical = 10.dp),
                                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                                 ) {
-                                    // Год в своей колонке: даты выстраиваются
-                                    // в столбик и дискография читается как хроника.
                                     Text(
                                         text = release.releaseYear,
                                         style = MaterialTheme.typography.labelMedium,
@@ -207,17 +186,10 @@ fun ArtistDetailScreen(
             }
         }
 
-        // Хвост, чтобы последняя строка не липла к краю окна.
         Box(Modifier.height(8.dp))
     }
 }
 
-/**
- * Шапка карточки: заливка цветом ведущего жанра, гаснущая в фон.
- *
- * Цвет здесь тот же, что на чипах, — он опознаёт запись ещё до того, как
- * прочитано имя, и связывает карточку со строкой списка, из которой пришли.
- */
 @Composable
 private fun Header(artist: Artist) {
     val accent = artist.genres.firstOrNull()
@@ -270,9 +242,7 @@ private fun Facts(artist: Artist) {
         if (artist.beginArea.isNotEmpty()) {
             Fact(stringResource(Res.string.label_origin, artist.beginArea, artist.area))
         }
-        // `life-span` у MusicBrainz значит разное в зависимости от типа записи:
-        // у человека это даты жизни, у состава — годы существования группы.
-        // Одной подписью это не покрыть, поэтому их четыре.
+
         if (artist.lifeSpanBegin.isNotEmpty()) {
             val isGroup = artist.type == ArtistType.GROUP
             Fact(
@@ -295,13 +265,6 @@ private fun Facts(artist: Artist) {
     }
 }
 
-/**
- * Псевдоним отдельной плашкой.
- *
- * Простым текстом через пробел псевдонимы слипаются в одну строку и читаются как
- * фраза: «Marshall Mathers Marshall Bruce Mathers III». Рамка задаёт границу
- * элемента, не добавляя ещё одного цвета.
- */
 @Composable
 private fun AliasPill(text: String) {
     Surface(

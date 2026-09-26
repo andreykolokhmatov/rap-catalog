@@ -8,18 +8,10 @@ import band.effective.education.rapcatalog.domain.ArtistRepository
 import band.effective.education.rapcatalog.ui.navigation.Navigator
 import kotlin.reflect.KClass
 
-/**
- * Собирает [ArtistDetailViewModel].
- *
- * MBID записи — не зависимость приложения, а аргумент конкретного экрана, поэтому
- * он приходит не в конструктор фабрики, а через [CreationExtras]: одна фабрика
- * обслуживает любое число карточек.
- */
 class ArtistDetailViewModelFactory(
     private val navigator: Navigator,
     private val repository: ArtistRepository,
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: KClass<T>, extras: CreationExtras): T {
         val id = requireNotNull(extras[ARTIST_ID_KEY]) {
             "ArtistDetailViewModel создаётся без MBID: передайте extrasFor(id)"
@@ -35,7 +27,6 @@ class ArtistDetailViewModelFactory(
     companion object {
         private val ARTIST_ID_KEY = CreationExtras.Key<String>()
 
-        /** Упаковывает MBID так, как его ждёт [create]. */
         fun extrasFor(id: String): CreationExtras =
             MutableCreationExtras().apply { set(ARTIST_ID_KEY, id) }
     }

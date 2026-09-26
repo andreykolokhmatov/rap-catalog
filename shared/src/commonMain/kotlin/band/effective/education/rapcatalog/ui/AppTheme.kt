@@ -6,18 +6,6 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
-/**
- * Тёмная схема — основная, по профилю «Dark Mode (OLED)».
- *
- * Фон чёрный по-настоящему (#000000), а не тёмно-серый: карточки и цветные метки
- * жанров на нём читаются как данные, а не спорят с интерфейсом за внимание, и на
- * OLED-экране чёрный пиксель просто не горит.
- *
- * Карточка — #121212, ровно на один различимый шаг светлее фона: этого хватает,
- * чтобы отделить её без рамки и без тени, которую на чёрном всё равно не видно.
- * Зелёный акцент — единственный яркий цвет интерфейса; всё остальное серое, и
- * поэтому акцент работает.
- */
 private val DarkColors = darkColorScheme(
     primary = Color(0xFF1DB954),
     onPrimary = Color(0xFF000000),
@@ -37,14 +25,6 @@ private val DarkColors = darkColorScheme(
     onError = Color(0xFF000000),
 )
 
-/**
- * Светлая схема — тот же каркас, вывернутый.
- *
- * Для OLED-стиля светлая тема не профильная, но переключение темы — требование
- * вехи, и вторая схема обязана быть настоящей, а не перекрашенной наспех.
- * Зелёный здесь темнее: #1DB954 под белым текстом не набирает 4.5:1, #15803D
- * набирает.
- */
 private val LightColors = lightColorScheme(
     primary = Color(0xFF15803D),
     onPrimary = Color(0xFFFFFFFF),
@@ -64,14 +44,6 @@ private val LightColors = lightColorScheme(
     onError = Color(0xFFFFFFFF),
 )
 
-/**
- * Тема приложения. Цвета объявлены здесь и только здесь: всё остальное берёт их
- * через `MaterialTheme.colorScheme`, иначе переключение темы обойдёт элемент
- * стороной.
- *
- * Исключение одно и оно осознанное — [genreColor]: цвет там несёт смысл данных
- * (жанр), а не оформление, и поэтому от темы не зависит.
- */
 @Composable
 fun AppTheme(darkTheme: Boolean, content: @Composable () -> Unit) {
     MaterialTheme(

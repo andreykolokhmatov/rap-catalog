@@ -15,16 +15,6 @@ import band.effective.education.rapcatalog.ui.genreColor
 import band.effective.education.rapcatalog.ui.genreLabel
 import org.jetbrains.compose.resources.stringResource
 
-/**
- * Бейдж жанра.
- *
- * Цвет подложки берётся из [genreColor] — единственное место, где цвет не из темы:
- * он несёт смысл данных и потому одинаков в обеих темах. Текст поверх всегда белый,
- * палитра под это проверена на контраст 4.5:1.
- *
- * Жанр подписан словом, а не только цветом: цвет один смысл передавать не должен —
- * его не увидит ни скринридер, ни человек с дальтонизмом.
- */
 @Composable
 fun GenreChip(genre: Genre, modifier: Modifier = Modifier) {
     Surface(

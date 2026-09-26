@@ -33,13 +33,6 @@ import band.effective.education.rapcatalog.resources.genre_underground
 import band.effective.education.rapcatalog.resources.genre_west_coast
 import org.jetbrains.compose.resources.StringResource
 
-/**
- * Подпись жанра.
- *
- * Жанр — часть интерфейса, а не содержимое каталога: пользователь читает «Восточное
- * побережье», а не `east coast hip hop`. Поэтому у него есть ключ в ресурсах, и обе
- * локали обязаны его знать — иначе `tools/check-strings.py` пожалуется.
- */
 fun genreLabel(genre: Genre): StringResource = when (genre) {
     Genre.HIP_HOP -> Res.string.genre_hip_hop
     Genre.RAP -> Res.string.genre_rap
@@ -68,7 +61,6 @@ fun genreLabel(genre: Genre): StringResource = when (genre) {
     Genre.RAGE -> Res.string.genre_rage
 }
 
-/** Подпись типа записи: человек или состав. */
 fun artistTypeLabel(type: ArtistType): StringResource = when (type) {
     ArtistType.PERSON -> Res.string.artist_type_person
     ArtistType.GROUP -> Res.string.artist_type_group

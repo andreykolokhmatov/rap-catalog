@@ -13,30 +13,18 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 
-/**
- * Солнце и месяц, нарисованные вручную.
- *
- * Символами `☀` и `☾` это делать нельзя: в шрифте целевой платформы их может
- * не оказаться, и вместо кнопки пользователь видит пустой квадрат — ровно это
- * и происходит в браузере. Векторная отрисовка не зависит ни от шрифта, ни от
- * таргета, а набор `material-icons` в зависимостях проекта отсутствует.
- *
- * Значок декоративный: подпись для скринридера висит на самой кнопке.
- */
 @Composable
 fun ThemeIcon(darkTheme: Boolean, modifier: Modifier = Modifier) {
     val tint = LocalContentColor.current
     Canvas(
         modifier = modifier
             .size(20.dp)
-            // Вырез месяца делается режимом Clear, а он работает только внутри
-            // собственного слоя: без него дыра прошла бы сквозь всю шапку.
+
             .graphicsLayer { compositingStrategy = CompositingStrategy.Offscreen },
     ) {
         val r = size.minDimension / 2f
         val center = Offset(r, r)
         if (darkTheme) {
-            // Солнце: диск и восемь лучей — «нажми, чтобы стало светло».
             drawCircle(color = tint, radius = r * 0.45f, center = center)
             repeat(8) { i ->
                 val angle = (i * 45f) * (3.14159265f / 180f)
@@ -51,7 +39,6 @@ fun ThemeIcon(darkTheme: Boolean, modifier: Modifier = Modifier) {
                 drawLine(color = tint, start = from, end = to, strokeWidth = r * 0.16f)
             }
         } else {
-            // Месяц: круг, из которого вырезан второй круг со смещением.
             drawCircle(color = tint, radius = r * 0.85f, center = center)
             drawCircle(
                 color = Color.Transparent,
@@ -63,11 +50,6 @@ fun ThemeIcon(darkTheme: Boolean, modifier: Modifier = Modifier) {
     }
 }
 
-/**
- * Рамка вокруг кода языка.
- *
- * Без неё «EN» в углу шапки читается как обрывок текста, а не как кнопка.
- */
 @Composable
 fun LanguageFrame(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
     val tint = LocalContentColor.current

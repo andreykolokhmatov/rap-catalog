@@ -11,12 +11,6 @@ import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
-/**
- * Заголовок раздела на экране детали и его содержимое.
- *
- * Заголовок набран мелко и в разрядку, а не крупно и цветом: он должен помечать
- * границу блока, а не конкурировать с именем артиста в шапке.
- */
 @Composable
 fun Section(
     title: StringResource,

@@ -26,16 +26,6 @@ import band.effective.education.rapcatalog.ui.artistPhoto
 import band.effective.education.rapcatalog.ui.genreColor
 import org.jetbrains.compose.resources.painterResource
 
-/**
- * Аватар артиста — первая буква имени на плитке цвета ведущего жанра.
- *
- * Картинок в этой вехе нет намеренно: MusicBrainz фотографий не отдаёт, обложки
- * живут в Cover Art Archive и приедут в В2. Буква на цветной плитке различает
- * записи в списке не хуже и не требует ни одного байта из сети.
- *
- * Два жанра дают диагональную заливку из двух цветов — так соседние карточки
- * отличаются друг от друга даже при одном ведущем жанре.
- */
 @Composable
 fun ArtistAvatar(artist: Artist, size: Dp, modifier: Modifier = Modifier) {
     Artwork(
@@ -46,18 +36,8 @@ fun ArtistAvatar(artist: Artist, size: Dp, modifier: Modifier = Modifier) {
     )
 }
 
-/**
- * Та же заливка, но во всю ширину ячейки и квадратом.
- *
- * Нужна сетке: там плитка занимает всю ширину колонки, а её высота задаётся
- * соотношением сторон, а не числом в dp — иначе при трёх колонках плитки
- * перестают быть квадратными.
- */
 @Composable
 fun ArtistTile(artist: Artist, modifier: Modifier = Modifier) {
-    // Кегль буквы считается от ширины ячейки, а не задан числом: колонка сетки
-    // растягивается вместе с окном, и фиксированный кегль на широком экране
-    // превращался бы в точку посреди плитки.
     BoxWithConstraints(modifier = modifier.fillMaxWidth().aspectRatio(1f)) {
         Artwork(
             artist = artist,
@@ -88,15 +68,14 @@ private fun Artwork(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
-            // Градиент остаётся подложкой и под фотографией: пока картинка
-            // декодируется, на её месте цветной прямоугольник, а не дыра.
+
             .background(Brush.linearGradient(colors)),
         contentAlignment = Alignment.Center,
     ) {
         if (photo != null) {
             Image(
                 painter = painterResource(photo),
-                // Снимок несёт смысл, а не украшает, поэтому подпись обязательна.
+
                 contentDescription = artist.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.matchParentSize(),
