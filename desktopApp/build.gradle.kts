@@ -19,11 +19,11 @@ dependencies {
 
 compose.desktop {
     application {
-        mainClass = "band.effective.education.rapcatalog.MainKt"
+        mainClass = "ru.omgtu.kolokhmatov.rapcatalog.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "band.effective.education.rapcatalog"
+            packageName = "ru.omgtu.kolokhmatov.rapcatalog"
             packageVersion = "1.0.0"
         }
     }

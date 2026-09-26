@@ -33,7 +33,7 @@ kotlin {
     }
     
     android {
-       namespace = "band.effective.education.rapcatalog.shared"
+       namespace = "ru.omgtu.kolokhmatov.rapcatalog.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
     
@@ -101,5 +101,5 @@ compose.resources {
     // Res генерируется internal, и подписи не видны из модулей-точек входа —
     // заголовок окна desktop без этого не сделать ресурсом.
     publicResClass = true
-    packageOfResClass = "band.effective.education.rapcatalog.resources"
+    packageOfResClass = "ru.omgtu.kolokhmatov.rapcatalog.resources"
 }
