@@ -1,4 +1,4 @@
-package ru.omgtu.kolokhmatov.rapcatalog.detail
+package ru.omgtu.kolokhmatov.rapcatalog.ui.detail
 
 import androidx.lifecycle.ViewModel
 import ru.omgtu.kolokhmatov.rapcatalog.Screen

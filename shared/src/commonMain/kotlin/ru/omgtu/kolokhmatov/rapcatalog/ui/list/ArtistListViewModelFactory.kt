@@ -1,4 +1,4 @@
-package ru.omgtu.kolokhmatov.rapcatalog.list
+package ru.omgtu.kolokhmatov.rapcatalog.ui.list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

@@ -14,9 +14,9 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ru.omgtu.kolokhmatov.rapcatalog.data.ArtistRepositoryImpl
-import ru.omgtu.kolokhmatov.rapcatalog.detail.ArtistDetailViewModelFactory
+import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailViewModelFactory
 import ru.omgtu.kolokhmatov.rapcatalog.domain.ArtistRepository
-import ru.omgtu.kolokhmatov.rapcatalog.list.ArtistListViewModelFactory
+import ru.omgtu.kolokhmatov.rapcatalog.ui.list.ArtistListViewModelFactory
 import ru.omgtu.kolokhmatov.rapcatalog.resources.Res
 import ru.omgtu.kolokhmatov.rapcatalog.resources.action_switch_language
 import ru.omgtu.kolokhmatov.rapcatalog.resources.action_toggle_theme

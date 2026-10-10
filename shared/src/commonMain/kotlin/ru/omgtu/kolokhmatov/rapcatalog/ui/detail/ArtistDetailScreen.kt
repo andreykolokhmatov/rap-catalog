@@ -1,4 +1,4 @@
-package ru.omgtu.kolokhmatov.rapcatalog.ui.screens.detail
+package ru.omgtu.kolokhmatov.rapcatalog.ui.detail
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -17,6 +17,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,13 +28,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import ru.omgtu.kolokhmatov.rapcatalog.detail.ArtistDetailIntent
-import ru.omgtu.kolokhmatov.rapcatalog.detail.ArtistDetailState
 import ru.omgtu.kolokhmatov.rapcatalog.domain.Artist
 import ru.omgtu.kolokhmatov.rapcatalog.domain.ArtistType
 import ru.omgtu.kolokhmatov.rapcatalog.resources.Res
 import ru.omgtu.kolokhmatov.rapcatalog.resources.alias_primary
 import ru.omgtu.kolokhmatov.rapcatalog.resources.detail_not_found
+import ru.omgtu.kolokhmatov.rapcatalog.resources.ic_chevron_right
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_born
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_country
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_group_range
@@ -54,6 +54,7 @@ import ru.omgtu.kolokhmatov.rapcatalog.ui.components.GenreChip
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.Section
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.TagBar
 import ru.omgtu.kolokhmatov.rapcatalog.ui.genreColor
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 private val MAX_CONTENT_WIDTH = 1040.dp
@@ -304,10 +305,10 @@ private fun RelatedRow(artist: Artist, onClick: () -> Unit) {
                 style = MaterialTheme.typography.titleSmall,
                 modifier = Modifier.weight(1f),
             )
-            Text(
-                text = "›",
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            Icon(
+                painterResource(Res.drawable.ic_chevron_right),
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }

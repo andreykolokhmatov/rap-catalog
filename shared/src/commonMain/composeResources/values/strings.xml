@@ -7,6 +7,10 @@
 
     <string name="list_count">Записей в каталоге: %1$s</string>
     <string name="detail_not_found">Такой записи в каталоге нет</string>
+    <string name="search_hint">Поиск по имени исполнителя</string>
+    <string name="action_clear_search">Очистить поиск</string>
+    <string name="list_empty">Ничего не найдено</string>
+    <string name="list_found">Найдено: %1$s</string>
 
     <string name="artist_type_person">Исполнитель</string>
     <string name="artist_type_group">Группа</string>

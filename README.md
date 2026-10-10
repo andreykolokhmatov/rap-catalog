@@ -46,13 +46,15 @@ iOS собирается только на macOS с Xcode — бонус све�
 | `Screen.kt` | маршруты: `data object List`, `data class Detail(id)` |
 | `ui/navigation/Navigator.kt` | бэкстек — обычный список объектов |
 | `ui/navigation/AppNavDisplay.kt` | хост Navigation 3, прямые и обратные переходы |
-| `list/`, `detail/` | состояние, намерения, ViewModel и фабрика на каждый экран |
+| `ui/list/`, `ui/detail/` | экран целиком: вёрстка, состояние, намерения, ViewModel и фабрика |
 | `ui/AppTheme.kt` | светлая и тёмная схемы, единственное место с цветами темы |
 | `ui/GenreStyle.kt` | цвет жанра — цвет данных, от темы не зависит |
 | `ui/AppLocale.kt` | переключение языка, `expect`/`actual` по таргетам |
-| `composeResources/drawable` | 33 фото артистов **локально**: на сеть в В1 закладываться нельзя |
+| `composeResources/drawable` | 33 фото артистов **локально**: на сеть в В1 закладываться нельзя; векторные иконки `ic_*` |
 | `ui/ArtistPhotos.kt` | MBID → снимок; `null` — рисуется буквенная плитка |
 | `composeResources/values`, `values-en` | подписи, две локали |
+| `docs/lab-1/report.pdf` | отчёт по вехе |
+| `docs/lab-1/screenshots/` | скриншоты экранов, в том числе сценарий поиска |
 | `tools/check-strings.py` | сверяет ключи локалей |
 | `docs/CREDITS.md` | авторы и лицензии снимков |
 
@@ -82,11 +84,17 @@ py -3 tools/check-strings.py
 
 **Экран рисуется из состояния.** Вниз в composable уходят состояние и колбэк,
 а не ViewModel целиком — иначе компилятор выведет её как `Unstable` и убьёт
-пропуск рекомпозиции. Отчёт компилятора включён в `shared/build.gradle.kts`,
-вывод настроен на `shared/build/compose_reports` и `shared/build/compose_metrics`.
-Файл выходит нулевого размера — известный баг плагина в Kotlin 2.4.20, а не
-следствие конфигурации: то же самое воспроизводится в обычном JVM-модуле и в
-эталонном покедексе воркшопа.
+пропуск рекомпозиции. Отчёт компилятора включён в `shared/build.gradle.kts`
+и пишется в `shared/build/compose_compiler` во время компиляции, так что
+смотреть его нужно после сборки:
+
+```bash
+./gradlew :shared:compileKotlinJvm
+```
+
+Модулю явно задано имя `shared`: по умолчанию оно `RapCatalog:shared`, и на
+NTFS двоеточие в имени файла уводит отчёт в альтернативный поток данных —
+снаружи виден пустой файл `RapCatalog`.
 
 **Навигация — Compose Navigation 3.** Маршрут это объект, а не строка. UI-часть
 взята мультиплатформенная (`org.jetbrains.androidx.navigation3:navigation3-ui`),

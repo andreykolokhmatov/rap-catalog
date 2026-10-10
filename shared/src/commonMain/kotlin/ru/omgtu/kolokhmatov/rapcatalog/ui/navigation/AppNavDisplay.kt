@@ -15,12 +15,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import ru.omgtu.kolokhmatov.rapcatalog.Screen
-import ru.omgtu.kolokhmatov.rapcatalog.detail.ArtistDetailViewModel
-import ru.omgtu.kolokhmatov.rapcatalog.detail.ArtistDetailViewModelFactory
-import ru.omgtu.kolokhmatov.rapcatalog.list.ArtistListViewModel
-import ru.omgtu.kolokhmatov.rapcatalog.list.ArtistListViewModelFactory
-import ru.omgtu.kolokhmatov.rapcatalog.ui.screens.detail.ArtistDetailScreen
-import ru.omgtu.kolokhmatov.rapcatalog.ui.screens.list.ArtistListScreen
+import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailViewModel
+import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailViewModelFactory
+import ru.omgtu.kolokhmatov.rapcatalog.ui.list.ArtistListViewModel
+import ru.omgtu.kolokhmatov.rapcatalog.ui.list.ArtistListViewModelFactory
+import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailScreen
+import ru.omgtu.kolokhmatov.rapcatalog.ui.list.ArtistListScreen
 
 private const val TRANSITION_MS = 300
 

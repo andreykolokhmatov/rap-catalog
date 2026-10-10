@@ -137,3 +137,9 @@
 | Wu‐Tang Clan | [Wu-Tang Clan](https://ru.wikipedia.org/wiki/Wu-Tang_Clan) |
 | XXXTENTACION | [XXXTentacion](https://ru.wikipedia.org/wiki/XXXTentacion) |
 | Ye | [Уэст, Канье](https://ru.wikipedia.org/wiki/%D0%A3%D1%8D%D1%81%D1%82%2C_%D0%9A%D0%B0%D0%BD%D1%8C%D0%B5) |
+
+## Иконки
+
+Векторные иконки `ic_arrow_back`, `ic_chevron_right`, `ic_search`, `ic_close` в
+`shared/src/commonMain/composeResources/drawable` — контуры из
+[Material Icons](https://github.com/google/material-design-icons) (Google, Apache License 2.0).
