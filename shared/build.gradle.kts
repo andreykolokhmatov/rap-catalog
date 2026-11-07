@@ -19,7 +19,11 @@ kotlin {
         }
     }
     
-    jvm()
+    jvm {
+        compilerOptions {
+            moduleName = "shared"
+        }
+    }
     
     js {
         browser()
@@ -33,12 +37,13 @@ kotlin {
     }
     
     android {
-       namespace = "band.effective.education.rapcatalog.shared"
+       namespace = "ru.omgtu.kolokhmatov.rapcatalog.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
     
        compilerOptions {
            jvmTarget = JvmTarget.JVM_11
+           moduleName = "shared"
        }
        androidResources {
            enable = true
@@ -85,21 +90,13 @@ dependencies {
 }
 
 composeCompiler {
-    // Отчёт о стабильности типов и о том, какие функции пропускаемы.
-    // Вывод — build/compose_reports и build/compose_metrics.
-    //
-    // Известная беда связки Kotlin 2.4.20: плагин создаёт файл с именем модуля
-    // и оставляет его пустым на всех таргетах. Проверено и явными флагами
-    // компилятора, и чистой пересборкой, и на Android, и на JVM; в эталонном
-    // проекте воркшопа ровно то же самое. Настройка включена и верна, пустой
-    // файл — не следствие конфигурации.
-    reportsDestination = layout.buildDirectory.dir("compose_reports")
-    metricsDestination = layout.buildDirectory.dir("compose_metrics")
+    reportsDestination = layout.buildDirectory.dir("compose_compiler")
+    metricsDestination = layout.buildDirectory.dir("compose_compiler")
 }
 
 compose.resources {
     // Res генерируется internal, и подписи не видны из модулей-точек входа —
     // заголовок окна desktop без этого не сделать ресурсом.
     publicResClass = true
-    packageOfResClass = "band.effective.education.rapcatalog.resources"
+    packageOfResClass = "ru.omgtu.kolokhmatov.rapcatalog.resources"
 }

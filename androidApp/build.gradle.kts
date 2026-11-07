@@ -20,11 +20,11 @@ dependencies {
 }
 
 android {
-    namespace = "band.effective.education.rapcatalog"
+    namespace = "ru.omgtu.kolokhmatov.rapcatalog"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "band.effective.education.rapcatalog"
+        applicationId = "ru.omgtu.kolokhmatov.rapcatalog"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
