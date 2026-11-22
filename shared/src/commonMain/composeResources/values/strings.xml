@@ -12,11 +12,19 @@
     <string name="list_empty">Ничего не найдено</string>
     <string name="list_found">Найдено: %1$s</string>
 
+    <string name="loading">Загрузка</string>
+    <string name="action_retry">Повторить</string>
+    <string name="error_connection">Нет связи с сервером. Проверьте интернет и попробуйте ещё раз</string>
+    <string name="error_rate_limit">Слишком много запросов к MusicBrainz. Подождите пару секунд</string>
+    <string name="error_server">Сервер ответил ошибкой. Попробуйте позже</string>
+    <string name="error_bad_response">Сервер прислал ответ, который не удалось разобрать</string>
+
     <string name="artist_type_person">Исполнитель</string>
     <string name="artist_type_group">Группа</string>
     <string name="artist_type_other">Другое</string>
 
     <string name="label_country">Страна: %1$s</string>
+    <string name="label_origin_short">Откуда: %1$s</string>
     <string name="label_origin">Откуда: %1$s, %2$s</string>
     <string name="label_born">Родился: %1$s</string>
     <string name="label_lifespan">Годы жизни: %1$s — %2$s</string>

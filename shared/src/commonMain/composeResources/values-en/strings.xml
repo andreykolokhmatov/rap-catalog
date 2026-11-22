@@ -12,11 +12,19 @@
     <string name="list_empty">Nothing found</string>
     <string name="list_found">Found: %1$s</string>
 
+    <string name="loading">Loading</string>
+    <string name="action_retry">Retry</string>
+    <string name="error_connection">Can’t reach the server. Check your connection and try again</string>
+    <string name="error_rate_limit">Too many requests to MusicBrainz. Wait a couple of seconds</string>
+    <string name="error_server">The server returned an error. Try again later</string>
+    <string name="error_bad_response">The server sent a response that couldn’t be read</string>
+
     <string name="artist_type_person">Artist</string>
     <string name="artist_type_group">Group</string>
     <string name="artist_type_other">Other</string>
 
     <string name="label_country">Country: %1$s</string>
+    <string name="label_origin_short">From: %1$s</string>
     <string name="label_origin">From: %1$s, %2$s</string>
     <string name="label_born">Born: %1$s</string>
     <string name="label_lifespan">Lifespan: %1$s — %2$s</string>

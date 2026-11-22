@@ -13,9 +13,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ru.omgtu.kolokhmatov.rapcatalog.data.ArtistRepositoryImpl
+import coil3.ImageLoader
+import coil3.compose.setSingletonImageLoaderFactory
+import coil3.network.ktor3.KtorNetworkFetcherFactory
+import ru.omgtu.kolokhmatov.rapcatalog.data.DataModule
 import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailViewModelFactory
-import ru.omgtu.kolokhmatov.rapcatalog.domain.ArtistRepository
 import ru.omgtu.kolokhmatov.rapcatalog.ui.list.ArtistListViewModelFactory
 import ru.omgtu.kolokhmatov.rapcatalog.resources.Res
 import ru.omgtu.kolokhmatov.rapcatalog.resources.action_switch_language
@@ -33,17 +35,27 @@ import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun App() {
+    val data = remember { DataModule() }
+    // Фото грузит Coil через тот же HttpClient с движком своего таргета.
+    // Кэш только в памяти: на диск в этой вехе ничего не пишется.
+    setSingletonImageLoaderFactory { context ->
+        ImageLoader.Builder(context)
+            .components { add(KtorNetworkFetcherFactory(httpClient = { data.httpClient })) }
+            .diskCache(null)
+            .build()
+    }
+
     var darkTheme by remember { mutableStateOf(true) }
     var language by remember { mutableStateOf(AppLanguage.RU) }
 
     AppTheme(darkTheme) {
         AppLocale(language) {
-            val repository: ArtistRepository = remember { ArtistRepositoryImpl() }
             val navigator = remember { Navigator() }
 
-            val listViewModelFactory = remember { ArtistListViewModelFactory(navigator, repository) }
+            val listViewModelFactory =
+                remember { ArtistListViewModelFactory(navigator, data.artistRepository) }
             val detailViewModelFactory =
-                remember { ArtistDetailViewModelFactory(navigator, repository) }
+                remember { ArtistDetailViewModelFactory(navigator, data.artistRepository) }
 
             val navStack = navigator.navStack.collectAsStateWithLifecycle()
             val canGoBack by remember { derivedStateOf { navStack.value.size > 1 } }

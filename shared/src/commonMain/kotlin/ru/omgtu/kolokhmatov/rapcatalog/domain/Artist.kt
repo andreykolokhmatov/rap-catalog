@@ -16,16 +16,22 @@ data class Artist(
     val tags: List<Tag>,
     val aliases: List<Alias>,
     val releaseGroups: List<ReleaseGroup>,
-    val relatedArtistIds: List<String>,
+    // Участники, группы и коллабы — краткие записи из связей карточки:
+    // полная карточка связанного артиста грузится при переходе на неё.
+    val related: List<Artist>,
     val biography: String,
     val biographyRu: String,
+    // Миниатюра с Викисклада; пустая строка — фото нет, рисуется буква.
+    val photoUrl: String,
 )
 
 enum class ArtistType { PERSON, GROUP, OTHER }
 
 data class Tag(val name: String, val count: Int)
 
-data class Alias(val name: String, val primary: Boolean)
+// primary в MusicBrainz — основной для своего языка locale, а не вообще:
+// у Eminem основные и «Eminem» (en), и «エミネム» (ja).
+data class Alias(val name: String, val primary: Boolean, val locale: String)
 
 data class ReleaseGroup(
     val id: String,

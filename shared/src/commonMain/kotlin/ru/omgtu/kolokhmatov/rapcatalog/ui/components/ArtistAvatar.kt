@@ -1,6 +1,5 @@
 package ru.omgtu.kolokhmatov.rapcatalog.ui.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -11,6 +10,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,9 +25,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ru.omgtu.kolokhmatov.rapcatalog.domain.Artist
-import ru.omgtu.kolokhmatov.rapcatalog.ui.artistPhoto
+import coil3.compose.AsyncImage
 import ru.omgtu.kolokhmatov.rapcatalog.ui.genreColor
-import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun ArtistAvatar(artist: Artist, size: Dp, modifier: Modifier = Modifier) {
@@ -55,7 +57,8 @@ private fun Artwork(
     letterSize: Float,
     modifier: Modifier,
 ) {
-    val photo = artistPhoto(artist)
+    // Буква видна, пока фото грузится, и остаётся, если фото нет или не загрузилось.
+    var photoShown by remember(artist.photoUrl) { mutableStateOf(false) }
     val fallback = MaterialTheme.colorScheme.primary
     val colors = when {
         artist.genres.isEmpty() -> listOf(fallback, fallback)
@@ -68,24 +71,26 @@ private fun Artwork(
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(cornerRadius))
-
             .background(Brush.linearGradient(colors)),
         contentAlignment = Alignment.Center,
     ) {
-        if (photo != null) {
-            Image(
-                painter = painterResource(photo),
-
-                contentDescription = artist.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.matchParentSize(),
-            )
-        } else {
+        if (!photoShown) {
             Text(
                 text = artist.name.take(1).uppercase(),
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
                 fontSize = letterSize.sp,
+            )
+        }
+        if (artist.photoUrl.isNotEmpty()) {
+            AsyncImage(
+                model = artist.photoUrl,
+                // Имя артиста и так подписано рядом с плиткой.
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                onSuccess = { photoShown = true },
+                onError = { photoShown = false },
+                modifier = Modifier.matchParentSize(),
             )
         }
     }

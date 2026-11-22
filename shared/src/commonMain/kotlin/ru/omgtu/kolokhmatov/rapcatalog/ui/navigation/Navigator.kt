@@ -9,8 +9,11 @@ class Navigator {
     private val _navStack: MutableStateFlow<List<Screen>> = MutableStateFlow(listOf(Screen.List))
     val navStack = _navStack.asStateFlow()
 
+    private var nextInstance = 0
+
     fun addToBackStack(screen: Screen) {
-        _navStack.update { it + screen }
+        val entry = if (screen is Screen.Detail) screen.copy(instance = ++nextInstance) else screen
+        _navStack.update { it + entry }
     }
 
     fun back() {

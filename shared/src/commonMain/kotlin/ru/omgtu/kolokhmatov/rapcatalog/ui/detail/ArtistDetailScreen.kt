@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import ru.omgtu.kolokhmatov.rapcatalog.domain.Alias
 import ru.omgtu.kolokhmatov.rapcatalog.domain.Artist
 import ru.omgtu.kolokhmatov.rapcatalog.domain.ArtistType
 import ru.omgtu.kolokhmatov.rapcatalog.resources.Res
@@ -40,6 +41,7 @@ import ru.omgtu.kolokhmatov.rapcatalog.resources.label_group_range
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_group_since
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_lifespan
 import ru.omgtu.kolokhmatov.rapcatalog.resources.label_origin
+import ru.omgtu.kolokhmatov.rapcatalog.resources.label_origin_short
 import ru.omgtu.kolokhmatov.rapcatalog.resources.section_about
 import ru.omgtu.kolokhmatov.rapcatalog.resources.section_aliases
 import ru.omgtu.kolokhmatov.rapcatalog.resources.section_related
@@ -50,6 +52,8 @@ import ru.omgtu.kolokhmatov.rapcatalog.ui.LocalAppLanguage
 import ru.omgtu.kolokhmatov.rapcatalog.ui.artistTypeLabel
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.ArtistAvatar
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.CardSurface
+import ru.omgtu.kolokhmatov.rapcatalog.ui.components.ErrorMessage
+import ru.omgtu.kolokhmatov.rapcatalog.ui.components.LoadingIndicator
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.GenreChip
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.Section
 import ru.omgtu.kolokhmatov.rapcatalog.ui.components.TagBar
@@ -61,23 +65,45 @@ private val MAX_CONTENT_WIDTH = 1040.dp
 
 @Composable
 fun ArtistDetailScreen(
-    state: ArtistDetailState?,
+    state: ArtistDetailState,
     onIntent: (ArtistDetailIntent) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    if (state == null) {
-        Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text(
-                text = stringResource(Res.string.detail_not_found),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-            )
-        }
-        return
+    when (state) {
+        ArtistDetailState.Loading -> LoadingIndicator(modifier = modifier.fillMaxSize())
+        ArtistDetailState.NotFound -> NotFound(modifier = modifier)
+        is ArtistDetailState.Error -> ErrorMessage(
+            reason = state.reason,
+            onRetry = { onIntent(ArtistDetailIntent.Retry) },
+            modifier = modifier.fillMaxSize(),
+        )
+        is ArtistDetailState.Loaded -> ArtistDetail(
+            artist = state.artist,
+            onIntent = onIntent,
+            modifier = modifier,
+        )
     }
+}
 
-    val artist = state.artist
+@Composable
+private fun NotFound(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(
+            text = stringResource(Res.string.detail_not_found),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
+private fun ArtistDetail(
+    artist: Artist,
+    onIntent: (ArtistDetailIntent) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val language = LocalAppLanguage.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -96,7 +122,7 @@ fun ArtistDetailScreen(
             Facts(artist)
 
             val biography = when {
-                LocalAppLanguage.current == AppLanguage.RU &&
+                language == AppLanguage.RU &&
                     artist.biographyRu.isNotEmpty() -> artist.biographyRu
                 else -> artist.biography
             }
@@ -120,7 +146,7 @@ fun ArtistDetailScreen(
                     ) {
                         artist.aliases.forEach { alias ->
                             AliasPill(
-                                text = if (alias.primary) {
+                                text = if (alias.isPrimaryFor(language)) {
                                     "${alias.name} · ${stringResource(Res.string.alias_primary)}"
                                 } else {
                                     alias.name
@@ -171,10 +197,10 @@ fun ArtistDetailScreen(
                 }
             }
 
-            if (state.related.isNotEmpty()) {
+            if (artist.related.isNotEmpty()) {
                 Section(Res.string.section_related) {
                     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                        state.related.forEach { related ->
+                        artist.related.forEach { related ->
                             RelatedRow(
                                 artist = related,
                                 onClick = {
@@ -239,9 +265,14 @@ private fun Header(artist: Artist) {
 @Composable
 private fun Facts(artist: Artist) {
     Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
-        Fact(stringResource(Res.string.label_country, artist.country))
-        if (artist.beginArea.isNotEmpty()) {
-            Fact(stringResource(Res.string.label_origin, artist.beginArea, artist.area))
+        if (artist.country.isNotEmpty()) {
+            Fact(stringResource(Res.string.label_country, artist.country))
+        }
+        when {
+            artist.beginArea.isEmpty() -> Unit
+            artist.area.isEmpty() || artist.area == artist.beginArea ->
+                Fact(stringResource(Res.string.label_origin_short, artist.beginArea))
+            else -> Fact(stringResource(Res.string.label_origin, artist.beginArea, artist.area))
         }
 
         if (artist.lifeSpanBegin.isNotEmpty()) {
@@ -313,3 +344,8 @@ private fun RelatedRow(artist: Artist, onClick: () -> Unit) {
         }
     }
 }
+
+// Отметка «основной» — только у основного псевдонима для языка интерфейса.
+// en_US и en — один язык: сравниваются коды до подчёркивания.
+private fun Alias.isPrimaryFor(language: AppLanguage): Boolean =
+    primary && locale.substringBefore('_').substringBefore('-').lowercase() == language.code

@@ -12,7 +12,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import ru.omgtu.kolokhmatov.rapcatalog.Screen
 import ru.omgtu.kolokhmatov.rapcatalog.ui.detail.ArtistDetailViewModel
@@ -36,6 +38,12 @@ fun AppNavDisplay(
         backStack = backStack,
         modifier = modifier,
         onBack = { navigator.back() },
+        // У каждой записи стека своё хранилище ViewModel: экран сняли со стека —
+        // его ViewModel очищена, а незаконченная загрузка отменена.
+        entryDecorators = listOf(
+            rememberSaveableStateHolderNavEntryDecorator(),
+            rememberViewModelStoreNavEntryDecorator(),
+        ),
         transitionSpec = { slide(SlideDirection.Start) },
         popTransitionSpec = { slide(SlideDirection.End) },
         predictivePopTransitionSpec = { slide(SlideDirection.End) },
@@ -46,9 +54,8 @@ fun AppNavDisplay(
                 ArtistListScreen(state = state, onIntent = viewModel::onIntent)
             }
             entry<Screen.Detail> { key ->
-
                 val viewModel: ArtistDetailViewModel = viewModel(
-                    key = "detail-${key.id}",
+                    key = "detail-${key.id}-${key.instance}",
                     factory = detailViewModelFactory,
                     extras = ArtistDetailViewModelFactory.extrasFor(key.id),
                 )
